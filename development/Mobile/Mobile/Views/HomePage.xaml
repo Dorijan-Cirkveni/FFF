@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mobile.Views.HomePage"
+             xmlns:vm="clr-namespace:Mobile.ViewModels"
+             Title="{Binding Title}">
+
+    <ContentPage.BindingContext>
+        <vm:HomeViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ScrollView Grid.Row="1">
+            <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
+                <Label Text="Bok!" FontSize="Title"/>
+                <Label Text="Nemoj zaboraviti na nadolazeće termine:" FontSize="16" Padding="0,0,0,0"/>
+                <ListView x:Name="listView">
+                    <!--staviti ItemsSource="{Binding Appointments}" u liniju iznad da se svakom prijavljenom korisniku prikažu njegovi sljedeći termini-->
+                    <ListView.Header>
+                        <Grid BackgroundColor="#ECECEC" Padding="5,5,5,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Termin" HorizontalOptions="Fill" Grid.Column="0" Margin="1" FontSize="16" BackgroundColor="#ECECEC"/>
+                            <Label Text="Vrsta predavanja" HorizontalOptions="Fill" Grid.Column="1" Margin="1" FontSize="16" BackgroundColor="#ECECEC"/>
+                        </Grid>
+                    </ListView.Header>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid BackgroundColor="#ECECEC" Padding="5,5,5,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="" HorizontalOptions="Fill" Margin="1" FontSize="16" BackgroundColor="White"></Label>
+                                    <Label Grid.Column="1" Text="" HorizontalOptions="Fill" Margin="1" FontSize="16" BackgroundColor="White"></Label>
+                                    <!--staviti Text ="{Binding Termin}" i Text ="{Binding Vrsta}" u linije iznad da se svakom prijavljenom korisniku prikažu njegovi podaci-->
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
