@@ -18,5 +18,7 @@ namespace SkolaGitareAPI.Data.Repositories.Interfaces
         public Task<List<AppointmentDTO>> GetAppointmentsWithStudents();
 
         public Task<List<PersonDTO>> GetStudents(Guid id);
+
+        public Task<List<AppointmentDTO>> GetStudentAppointments(string id);
     }
 }
