@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
-                <Label Text="Bok!" FontSize="Title"/>
+                <Label Text="{Binding HelloMessage}" FontSize="Title"/>
                 <Label Text="Nemoj zaboraviti na nadolazeće termine:" FontSize="16" Padding="0,0,0,0"/>
                 <ListView x:Name="listView">
                     <!--staviti ItemsSource="{Binding Appointments}" u liniju iznad da se svakom prijavljenom korisniku prikažu njegovi sljedeći termini-->

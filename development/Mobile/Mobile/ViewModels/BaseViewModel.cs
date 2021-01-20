@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IdentityModel.Tokens.Jwt;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -9,10 +10,17 @@ namespace Mobile.ViewModels
     public class BaseViewModel : INotifyPropertyChanged
     {
         string title = string.Empty;
+        string message = string.Empty;
         public string Title 
         {
             get { return title; }
             set { SetProperty(ref title, value); }
+        }
+
+        public string HelloMessage
+        {
+            get { return message; }
+            set { SetProperty(ref message, value); }
         }
 
         protected bool SetProperty<T>(ref T backingStore, T value,

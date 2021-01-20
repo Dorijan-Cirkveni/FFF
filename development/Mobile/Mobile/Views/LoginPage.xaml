@@ -22,9 +22,10 @@
         </Grid.RowDefinitions>
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
-                <Entry Placeholder="E-mail"></Entry>
-                <Entry Placeholder="Lozinka" IsPassword="true"></Entry>
-                <Button Text="Prijava" Command="{Binding LoginCommand}"/>                
+                <Entry Placeholder="E-mail" Text="{Binding Username}"></Entry>
+                <Entry Placeholder="Lozinka" Text="{Binding Password}" IsPassword="true"></Entry>
+                <Label IsVisible="{Binding Toggle}" TextColor="Red">Unijeli ste netočan e-mail ili lozinku. Pokušajte ponovo.</Label>
+                <Button Text="Prijava" Command="{Binding LoginCommand}"/>
             </StackLayout>
         </ScrollView>
     </Grid>

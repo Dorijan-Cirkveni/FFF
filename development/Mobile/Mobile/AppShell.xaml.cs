@@ -19,6 +19,7 @@ namespace Mobile
 
         private async void OnLogoutClicked(object sender, EventArgs e)
         {
+            Application.Current.Properties["token"] = string.Empty;
             await Shell.Current.GoToAsync("//StartPage");
         }
     }

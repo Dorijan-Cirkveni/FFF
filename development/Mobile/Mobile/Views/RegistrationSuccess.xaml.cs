@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,12 +10,12 @@ using Xamarin.Forms.Xaml;
 namespace Mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HomePage : ContentPage
+    public partial class RegistrationSuccess : ContentPage
     {
-        public HomePage()
+        public RegistrationSuccess()
         {
             InitializeComponent();
-            this.BindingContext = new HomeViewModel();
+            this.BindingContext = new RegistrationSuccessViewModel();
         }
     }
 }

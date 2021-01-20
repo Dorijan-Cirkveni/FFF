@@ -92,6 +92,12 @@
     <TabBar>
         <ShellContent Route="RegisterPage" ContentTemplate="{DataTemplate local:RegisterPage}" />
     </TabBar>
+    <TabBar>
+        <ShellContent Route="RegistrationSuccess" ContentTemplate="{DataTemplate local:RegistrationSuccess}" />
+    </TabBar>
+    <TabBar>
+        <ShellContent Route="NotStudentPage" ContentTemplate="{DataTemplate local:NotStudentPage}" />
+    </TabBar>
 
 </Shell>
 
