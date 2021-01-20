@@ -4,11 +4,27 @@ using UnityEngine;
 
 public class ScreenManager : MonoBehaviour
 {
-    public List<ISwitchable> gameObjects;
-    public readonly List<int> start = new List<int>
+    public List<GameObject> input = new List<GameObject>();
+    List<ISwitchable> screens = new List<ISwitchable>();
+    public int active = 0;
     // Start is called before the first frame update
     void Start()
     {
+        foreach (GameObject el in input)
+        {
+            if (el == null)
+            {
+                screens.Add(null);
+                continue;
+            }
+            ISwitchable found = el.GetComponent<ISwitchable>();
+            if (found != null)
+            {
+                screens.Add(found);
+                found.Close();
+            }
+        }
+        screens[active].Open();
     }
 
     // Update is called once per frame
@@ -17,21 +33,10 @@ public class ScreenManager : MonoBehaviour
         
     }
 
-    void SwapOneToOne(int turnOn, int turnOff)
+    public void Swap(int turnOn)
     {
-        this.gameObjects[turnOff].Close();
-        this.gameObjects[turnOn].Open();
-    }
-
-    void SwapManyToOne(int turnOn, List<int> turnOff)
-    {
-        foreach(int el in turnOff) this.gameObjects[el].Close();
-        this.gameObjects[turnOn].Open();
-    }
-
-    void Swap(List<int> turnOn, List<int> turnOff)
-    {
-        foreach(int el in turnOff) this.gameObjects[el].Close();
-        foreach(int el in turnOn) this.gameObjects[el].Open();
+        screens[active].Close();
+        active = turnOn;
+        screens[active].Open();
     }
 }
