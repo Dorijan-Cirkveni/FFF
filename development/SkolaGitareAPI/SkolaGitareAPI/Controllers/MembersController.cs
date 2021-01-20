@@ -58,7 +58,7 @@ namespace SkolaGitareAPI.Controllers
         }
 
 
-        [HttpPut("Student/{newStudentId}/ChangeMembershipType/{newTypeId}")]
+        [HttpPut("Student/{studentId}/ChangeMembershipType/{newTypeId}")]
         public async Task<IActionResult> ChangeMembershipType(string studentId, Guid newTypeId)
         {
             var result = await repository.ChangeMembershipType(newTypeId, studentId);
