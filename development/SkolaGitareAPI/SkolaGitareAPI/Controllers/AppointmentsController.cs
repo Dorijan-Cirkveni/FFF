@@ -47,14 +47,14 @@ namespace SkolaGitareAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            if(id == default(Guid))
+            if (id == default(Guid))
             {
                 return BadRequest();
             }
 
             var app = await repository.Get(id);
 
-            if(app == null)
+            if (app == null)
             {
                 return BadRequest();
             }
@@ -82,7 +82,7 @@ namespace SkolaGitareAPI.Controllers
 
             var teacher = await personRepository.Get(teacherId);
 
-            if(teacher == null)
+            if (teacher == null)
             {
                 return BadRequest(new { code = -1, errorMessage = "Unable to create appointment" });
             }
@@ -91,7 +91,7 @@ namespace SkolaGitareAPI.Controllers
 
             var id = await repository.CreateAppointment(model.DateTimeStart, model.Duration, teacher, model.StudentsIds.ToList());
 
-            if(id == null)
+            if (id == null)
             {
                 return BadRequest(new { code = -1, errorMessage = "Unable to create appointment" });
             }
@@ -159,7 +159,7 @@ namespace SkolaGitareAPI.Controllers
 
             var app = await repository.Get(model.AppointmentId);
 
-            if(app == null)
+            if (app == null)
             {
                 return BadRequest(new { code = -1, errorMessage = "Unable to update appointment" });
             }
@@ -210,21 +210,32 @@ namespace SkolaGitareAPI.Controllers
             }
         }
 
+        [HttpGet("{id}/Students")]
+        public async Task<IActionResult> GetStudents(Guid? id)
+        {
+            if (id == null)
+            {
+                return BadRequest(new { code = -1, errorMessage = "Unable to get students" });
+            }
+
+            return Ok(await repository.GetStudents(id.Value));
+        }
+
         [HttpPut("{id}/Students/Add")]
         public async Task<IActionResult> AddStudents(Guid id, IEnumerable<string> studentIds)
         {
-            if(studentIds == null)
+            if (studentIds == null)
             {
                 return BadRequest(new { code = -1, errorMessage = "Unable to add students" });
             }
 
-            if(studentIds.Count() == 0)
+            if (studentIds.Count() == 0)
             {
                 return Ok();
             }
 
 
-            if(await repository.AddStudents(id, studentIds))
+            if (await repository.AddStudents(id, studentIds))
             {
                 return Ok();
             }

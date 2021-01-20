@@ -95,6 +95,13 @@ namespace SkolaGitareAPI.Data.Repositories
             return await context.Appointments.Select(x => x).ProjectTo<AppointmentDTO>(mapper.ConfigurationProvider).ToListAsync();
         }
 
+        public async Task<List<PersonDTO>> GetStudents(Guid id)
+        {
+            var app = await context.Appointments.Include(x => x.Students).Select(x => x).Where(x => x.Id == id).ProjectTo<AppointmentDTO>(mapper.ConfigurationProvider).FirstOrDefaultAsync();
+
+            return app?.Students;
+        }
+
         public async Task<bool> RemoveStudents(Guid id, IEnumerable<string> studentIds)
         {
             if (studentIds == null)

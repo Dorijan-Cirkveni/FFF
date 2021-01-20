@@ -16,5 +16,7 @@ namespace SkolaGitareAPI.Data.Repositories.Interfaces
         public Task<bool> RemoveStudents(Guid id, IEnumerable<string> studentIds);
 
         public Task<List<AppointmentDTO>> GetAppointmentsWithStudents();
+
+        public Task<List<PersonDTO>> GetStudents(Guid id);
     }
 }
