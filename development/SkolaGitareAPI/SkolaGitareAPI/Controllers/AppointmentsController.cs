@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace SkolaGitareAPI.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize(Roles = "Teacher")]
+    [Authorize(Roles = "Teacher, Student")]
     [ApiController]
     public class AppointmentsController : ControllerBase
     {
@@ -38,6 +38,7 @@ namespace SkolaGitareAPI.Controllers
 
         // GET: api/<Appointments>
         [HttpGet]
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> Get()
         {
             return Ok(await repository.GetAppointmentsWithStudents());
@@ -45,6 +46,7 @@ namespace SkolaGitareAPI.Controllers
 
         // GET api/<Appointments>/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> Get(Guid id)
         {
             if (id == default(Guid))
@@ -66,6 +68,7 @@ namespace SkolaGitareAPI.Controllers
 
         // POST api/<Appointments>
         [HttpPost]
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> Post([FromBody] CreateAppointmentModel model)
         {
             if (model == null)
@@ -101,6 +104,7 @@ namespace SkolaGitareAPI.Controllers
 
         // PUT api/<Appointments>/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> Put(Guid id, [FromBody] UpdateAppointmentModel model)
         {
             if (model == null)
@@ -141,6 +145,7 @@ namespace SkolaGitareAPI.Controllers
         }
 
         [Produces("application/json")]
+        [Authorize(Roles = "Teacher")]
         [HttpPut("{id}/Duration")]
         public async Task<IActionResult> UpdateAppointmentDuration(UpdateAppointmentTimeModel model)
         {
@@ -183,6 +188,7 @@ namespace SkolaGitareAPI.Controllers
 
         // DELETE api/<Appointments>/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> Delete(Guid id)
         {
 
@@ -211,6 +217,7 @@ namespace SkolaGitareAPI.Controllers
         }
 
         [HttpGet("{id}/Students")]
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> GetStudents(Guid? id)
         {
             if (id == null)
@@ -221,7 +228,19 @@ namespace SkolaGitareAPI.Controllers
             return Ok(await repository.GetStudents(id.Value));
         }
 
+        [HttpGet("Student/{id}")]
+        public async Task<IActionResult> GetStudentsAppointments(string id)
+        {
+            if (id == null)
+            {
+                return BadRequest(new { code = -1, errorMessage = "Unable to get students" });
+            }
+
+            return Ok(await repository.GetStudentAppointments(id));
+        }
+
         [HttpPut("{id}/Students/Add")]
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> AddStudents(Guid id, IEnumerable<string> studentIds)
         {
             if (studentIds == null)
@@ -246,6 +265,7 @@ namespace SkolaGitareAPI.Controllers
         }
 
         [HttpPut("{id}/Students/Remove")]
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> RemoveStudents(Guid id, IEnumerable<string> studentIds)
         {
             if (studentIds == null)
