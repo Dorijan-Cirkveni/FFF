@@ -5,10 +5,10 @@ using UnityEngine;
 public class ScreenManager : MonoBehaviour
 {
     public List<ISwitchable> gameObjects;
+    public readonly List<int> start = new List<int>
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -17,12 +17,21 @@ public class ScreenManager : MonoBehaviour
         
     }
 
-    void SwapOne(GameObject turnOn, List<GameObject> turnOff)
+    void SwapOneToOne(int turnOn, int turnOff)
     {
-        foreach(GameObject el in turnOff)
+        this.gameObjects[turnOff].Close();
+        this.gameObjects[turnOn].Open();
     }
 
-    void Swap(List<GameObject> turnOn, List<GameObject> turnOff)
+    void SwapManyToOne(int turnOn, List<int> turnOff)
     {
+        foreach(int el in turnOff) this.gameObjects[el].Close();
+        this.gameObjects[turnOn].Open();
+    }
+
+    void Swap(List<int> turnOn, List<int> turnOff)
+    {
+        foreach(int el in turnOff) this.gameObjects[el].Close();
+        foreach(int el in turnOn) this.gameObjects[el].Open();
     }
 }
