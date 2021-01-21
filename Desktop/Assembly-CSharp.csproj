@@ -57,8 +57,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Clanarine.cs" />
     <Compile Include="Assets\DummySwitchable.cs" />
     <Compile Include="Assets\ISwitchable.cs" />
+    <Compile Include="Assets\Korisnici.cs" />
+    <Compile Include="Assets\Registracije.cs" />
     <Compile Include="Assets\ScreenManager.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.4f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

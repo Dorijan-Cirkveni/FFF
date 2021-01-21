@@ -35,8 +35,10 @@ public class ScreenManager : MonoBehaviour
 
     public void Swap(int turnOn)
     {
+        Debug.Log(active*10+turnOn);
         screens[active].Close();
         active = turnOn;
+        Debug.Log(active);
         screens[active].Open();
     }
 }
