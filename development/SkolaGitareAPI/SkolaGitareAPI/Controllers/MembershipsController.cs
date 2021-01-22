@@ -42,6 +42,12 @@ namespace SkolaGitareAPI.Controllers
             return Ok(repository.GetAll());
         }
 
+        [HttpGet("WithDetails")]
+        public async Task<IActionResult> GetWithDetails()
+        {
+            return Ok(await repository.GetMemberships());
+        }
+
         // GET api/<MembershipsController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
@@ -52,6 +58,26 @@ namespace SkolaGitareAPI.Controllers
             }
 
             var membership = await repository.Get(id);
+
+            if (membership == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                return Ok(membership);
+            }
+        }
+
+        [HttpGet("{id}/WithDetails")]
+        public async Task<IActionResult> GetWithDetails(Guid id)
+        {
+            if (id == default(Guid))
+            {
+                return BadRequest();
+            }
+
+            var membership = await repository.GetMembership(id);
 
             if (membership == null)
             {

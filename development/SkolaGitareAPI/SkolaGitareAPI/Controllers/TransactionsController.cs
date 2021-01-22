@@ -75,7 +75,7 @@ namespace SkolaGitareAPI.Controllers
         }
 
         [HttpGet("Student/{id}/Transaction")]
-        public async Task<IActionResult> Get(string id, [FromBody] DateTime date)
+        public async Task<IActionResult> Get(string id, [FromQuery] DateTime date)
         {
             if (id == null)
             {
