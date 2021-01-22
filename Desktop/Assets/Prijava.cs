@@ -4,6 +4,12 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
+public class LoginModel
+{
+    public string Token { get; set; }
+    public string Expiration { get; set; }
+}
 
 public class Prijava : MonoBehaviour, ISwitchable
 {
@@ -11,9 +17,10 @@ public class Prijava : MonoBehaviour, ISwitchable
 
     public async System.Threading.Tasks.Task CloseAsync()
     {
-        string ime = "";
-        string lozinkaRaw = "";
-        object userInfos = new { username = ime, password = lozinkaRaw };
+        bool Toggle = false;
+        string Username = i1.text;
+        string Password = i2.text;
+        object userInfos = new { username = Username, password = Password };
         var jsonObj = JsonUtility.ToJson(userInfos);
         var httpHandler = new HttpClientHandler
         {
@@ -21,7 +28,7 @@ public class Prijava : MonoBehaviour, ISwitchable
         };
         using (HttpClient client = new HttpClient(httpHandler))
         {
-            Debug.Log(ime + " " + lozinkaRaw);
+            Debug.Log(Username + " " + Password);
             StringContent content = new StringContent(jsonObj.ToString(), Encoding.UTF8, "application/json");
             var request = new HttpRequestMessage()
             {
@@ -48,11 +55,14 @@ public class Prijava : MonoBehaviour, ISwitchable
                 Password = string.Empty;
                 Toggle = true;
             }
+            return response;
         }
     }
-    public void Close()
+    public bool Close()
     {
-        CloseAsync().Wait();
+        System.Threading.Tasks.Task T = CloseAsync();
+        T.Wait();
+        return T.
     }
 
     public void Open()

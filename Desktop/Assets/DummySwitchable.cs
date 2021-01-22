@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class DummySwitchable : MonoBehaviour, ISwitchable
 {
-    public void CloseAsync()
+    public bool Close()
     {
         gameObject.SetActive(false);
+        return true;
     }
 
-    public void Open()
+    public bool Open()
     {
         gameObject.SetActive(true);
+        return true;
     }
 
     // Start is called before the first frame update

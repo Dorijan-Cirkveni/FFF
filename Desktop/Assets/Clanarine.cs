@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Clanarine : MonoBehaviour, ISwitchable
 {
-    public void CloseAsync()
+    public bool Close()
     {
         throw new System.NotImplementedException();
     }
 
-    public void Open()
+    public bool Open()
     {
         throw new System.NotImplementedException();
     }

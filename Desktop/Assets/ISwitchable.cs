@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface ISwitchable
 {
-    void Open();
+    bool Open();
 
-    void CloseAsync();
+    bool Close();
 }
