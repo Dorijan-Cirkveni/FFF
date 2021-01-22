@@ -16,26 +16,22 @@ namespace Mobile.ViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
-        private AppointmentModel _selectedAppointment;
         public Command LoadAppointmentsCommand { get; }
+        public Command AddAppointmentCommand { get; }
         public ObservableCollection<AppointmentModel> Appointments { get; }
-        public Command<AppointmentModel> AppointmentTapped { get; }
 
         public HomeViewModel()
         {
             Title = "Naslovnica";
             Appointments = new ObservableCollection<AppointmentModel>();
             LoadAppointmentsCommand = new Command(async () => await ExecuteLoadAppointmentsCommand());
-            AppointmentTapped = new Command<AppointmentModel>(OnAppointmentSelected);
+            AddAppointmentCommand = new Command(OnAddAppointment);
         }
 
         public void OnAppearing()
         {
             IsBusy = true;
-            _selectedAppointment = null;
         }
-
-        //internal async void GetData() {}
 
         async Task ExecuteLoadAppointmentsCommand()
         {
@@ -65,6 +61,14 @@ namespace Mobile.ViewModels
                     if (response.IsSuccessStatusCode)
                     {
                         var result = JsonConvert.DeserializeObject<List<AppointmentModel>>(dataResult);
+                        result.Sort(delegate (AppointmentModel x, AppointmentModel y)
+                        {
+                            if (x.DateTimeStart == null && y.DateTimeStart == null) return 0;
+                            else if (x.DateTimeStart == null) return -1;
+                            else if (y.DateTimeStart == null) return 1;
+                            else return x.DateTimeStart.CompareTo(y.DateTimeStart);
+                        });
+
                         foreach (var appointment in result)
                         {
                             Appointments.Add(appointment);
@@ -74,7 +78,7 @@ namespace Mobile.ViewModels
             }
             catch (Exception e)
             {
-                
+                Console.WriteLine(e);
             }
             finally
             {
@@ -82,13 +86,9 @@ namespace Mobile.ViewModels
             }
         }
 
-        async void OnAppointmentSelected(AppointmentModel appointment)
+        private async void OnAddAppointment(object obj)
         {
-            if (appointment == null)
-                return;
-
-            // This will push the AppointmentDetailPage onto the navigation stack
-            // await Shell.Current.GoToAsync($"{nameof(AppointmentDetailPage)}?{nameof(AppointmentDetailViewModel.AppointmentId)}={appointment.Id}");
+            await Shell.Current.GoToAsync(nameof(NewAppointmentPage));
         }
     }
 }

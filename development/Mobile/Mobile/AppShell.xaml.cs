@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-
+using Mobile.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,6 +16,7 @@ namespace Mobile
         public AppShell()
         {
             InitializeComponent();
+            Routing.RegisterRoute(nameof(NewAppointmentPage), typeof(NewAppointmentPage));
             CurrentItem = Start;
         }
 

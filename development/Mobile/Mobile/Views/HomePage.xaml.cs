@@ -58,8 +58,6 @@ namespace Mobile.Views
                     _home.HelloMessage = "Bok, " + c.Value + "!";
                 }
             }
-
-            //if (_home.Student) _home.GetData();
         }
     }
 }

@@ -2,8 +2,6 @@
 using Xamarin.Forms;
 using Mobile.Views;
 using Xamarin.Forms.Xaml;
-using System.Globalization;
-using System.Threading;
 
 namespace Mobile
 {
@@ -12,7 +10,6 @@ namespace Mobile
         public App()
         {
             InitializeComponent();
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("hr-HR");
             MainPage = new AppShell();
         }
 
