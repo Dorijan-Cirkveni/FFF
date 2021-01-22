@@ -5,6 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 using Mobile.Models;
 using Mobile.Views;
 using Newtonsoft.Json;
@@ -15,6 +16,7 @@ namespace Mobile.ViewModels
     public class LoginViewModel : BaseViewModel
     {
         public Command LoginCommand { get; }
+        public Command CancelAction { get; }
 
         private bool _toggle = false;
         public bool Toggle
@@ -41,10 +43,20 @@ namespace Mobile.ViewModels
         {
             Title = "Prijava";
             LoginCommand = new Command(OnLoginClicked);
+            CancelAction = new Command(OnCancelClicked);
+        }
+
+        private async void OnCancelClicked()
+        {
+            Username = string.Empty;
+            Password = string.Empty;
+            Toggle = false;
+            await Shell.Current.GoToAsync($"//{nameof(StartPage)}");
         }
 
         private async void OnLoginClicked(object obj)
         {
+            Student = false;
             object userInfos = new { username = _name, password = _password };
             var jsonObj = JsonConvert.SerializeObject(userInfos);
             var httpHandler = new HttpClientHandler
@@ -69,7 +81,9 @@ namespace Mobile.ViewModels
                 {
                     var result = JsonConvert.DeserializeObject<LoginModel>(dataResult);
                     Application.Current.Properties["token"] = result.Token;
+
                     await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+                    
                     Username = string.Empty;
                     Password = string.Empty;
                     Toggle = false;

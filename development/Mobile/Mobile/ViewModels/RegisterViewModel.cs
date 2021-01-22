@@ -11,6 +11,7 @@ namespace Mobile.ViewModels
     public class RegisterViewModel : BaseViewModel
     {
         public Command RegisterCommand { get; }
+        public Command CancelAction { get; }
 
         private string _firstName = string.Empty;
         private string _lastName = string.Empty;
@@ -72,6 +73,20 @@ namespace Mobile.ViewModels
         {
             Title = "Registracija";
             RegisterCommand = new Command(OnRegisterClicked);
+            CancelAction = new Command(OnCancelClicked);
+        }
+
+        private async void OnCancelClicked()
+        {
+            FirstName = string.Empty;
+            LastName = string.Empty;
+            Email = string.Empty;
+            PhoneNumber = string.Empty;
+            Password = string.Empty;
+            ConfirmPassword = string.Empty;
+            Toggle = false;
+            Toggle2 = false;
+            await Shell.Current.GoToAsync($"//{nameof(StartPage)}");
         }
 
         private async void OnRegisterClicked(object obj)

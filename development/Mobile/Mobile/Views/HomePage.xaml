@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Mobile.Views.HomePage"
              xmlns:vm="clr-namespace:Mobile.ViewModels"
+             xmlns:model="clr-namespace:Mobile.Models"  
              Title="{Binding Title}">
 
     <ContentPage.BindingContext>
@@ -24,8 +25,36 @@
             <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
                 <Label Text="{Binding HelloMessage}" FontSize="Title"/>
                 <Label Text="Nemoj zaboraviti na nadolazeće termine:" FontSize="16" Padding="0,0,0,0"/>
+
+                <RefreshView x:DataType="vm:HomeViewModel" Command="{Binding LoadAppointmentsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                    <CollectionView x:Name="ItemsListView"
+                ItemsSource="{Binding Appointments}"
+                SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="10" x:DataType="model:AppointmentModel">
+                                    <Label Text="{Binding DateTimeStart}" 
+                            LineBreakMode="NoWrap" 
+                            Style="{DynamicResource ListItemTextStyle}" 
+                            FontSize="16" />
+                                    <Label Text="{Binding Duration}" 
+                            LineBreakMode="NoWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="13" />
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                NumberOfTapsRequired="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=AppointmentTapped}"		
+                                CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+                <!--
                 <ListView x:Name="listView">
-                    <!--staviti ItemsSource="{Binding Appointments}" u liniju iznad da se svakom prijavljenom korisniku prikažu njegovi sljedeći termini-->
                     <ListView.Header>
                         <Grid BackgroundColor="#ECECEC" Padding="5,5,5,5">
                             <Grid.ColumnDefinitions>
@@ -33,7 +62,8 @@
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Label Text="Termin" HorizontalOptions="Fill" Grid.Column="0" Margin="1" FontSize="16" BackgroundColor="#ECECEC"/>
-                            <Label Text="Vrsta predavanja" HorizontalOptions="Fill" Grid.Column="1" Margin="1" FontSize="16" BackgroundColor="#ECECEC"/>
+                            <Label Text="Trajanje" HorizontalOptions="Fill" Grid.Column="1" Margin="1" FontSize="16" BackgroundColor="#ECECEC"/>
+                            <Label Text="Profesor" HorizontalOptions="Fill" Grid.Column="2" Margin="1" FontSize="16" BackgroundColor="#ECECEC"/>
                         </Grid>
                     </ListView.Header>
 
@@ -47,12 +77,11 @@
                                     </Grid.ColumnDefinitions>
                                     <Label Grid.Column="0" Text="" HorizontalOptions="Fill" Margin="1" FontSize="16" BackgroundColor="White"></Label>
                                     <Label Grid.Column="1" Text="" HorizontalOptions="Fill" Margin="1" FontSize="16" BackgroundColor="White"></Label>
-                                    <!--staviti Text ="{Binding Termin}" i Text ="{Binding Vrsta}" u linije iznad da se svakom prijavljenom korisniku prikažu njegovi podaci-->
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                </ListView>
+                </ListView>-->
             </StackLayout>
         </ScrollView>
     </Grid>

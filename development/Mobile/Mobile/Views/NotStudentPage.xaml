@@ -10,9 +10,9 @@
         </Grid.RowDefinitions>
         <ScrollView Grid.Row="1">
             <StackLayout VerticalOptions="CenterAndExpand" Padding="50,50,50,50" Spacing="10">
-                <Label Text="Mobilna aplikacija namijenjena je isključivo studentima." HorizontalTextAlignment="Center" FontSize="Title" Padding="0,10,0,40" FontAttributes="Bold"/>
-                <Label Text="Nemate ovlasti za korištenje aplikacije." HorizontalTextAlignment="Center"></Label>
-                <Button Text="Natrag" Command="{Binding BackCommand}"/>
+                <Label Text="Mobilna aplikacija namijenjena je isključivo učenicima." HorizontalTextAlignment="Center" FontSize="Title" Padding="0,0,0,10" FontAttributes="Bold"/>
+                <Label Text="Nemate ovlasti za korištenje aplikacije." HorizontalTextAlignment="Center" Padding="0,0,0,10"></Label>
+                <Button Text="Odjava" Command="{Binding BackCommand}"/>
             </StackLayout>
         </ScrollView>
     </Grid>

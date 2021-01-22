@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IdentityModel.Tokens.Jwt;
 using System.Runtime.CompilerServices;
+using System.Security.Claims;
 using System.Text;
+using Mobile.Views;
+using Xamarin.Forms;
 
 namespace Mobile.ViewModels
 {
@@ -11,10 +14,25 @@ namespace Mobile.ViewModels
     {
         string title = string.Empty;
         string message = string.Empty;
+        bool _isStudent = false;
+        bool isBusy = false;
+
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            set { SetProperty(ref isBusy, value); }
+        }
+
         public string Title 
         {
             get { return title; }
             set { SetProperty(ref title, value); }
+        }
+
+        public bool Student
+        {
+            get => _isStudent;
+            set => SetProperty(ref _isStudent, value);
         }
 
         public string HelloMessage
