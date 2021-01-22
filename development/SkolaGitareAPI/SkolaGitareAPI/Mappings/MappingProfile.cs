@@ -15,6 +15,7 @@ namespace SkolaGitareAPI.Mappings
             CreateMap<Person, PersonDTO>();
             CreateMap<Appointment, AppointmentDTO>();
             CreateMap<AppointmentRequest, AppointmentRequestDTO>();
+            CreateMap<Transaction, TransactionDTO>();
         }
     }
 }
