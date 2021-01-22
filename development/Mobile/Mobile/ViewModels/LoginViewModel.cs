@@ -65,7 +65,6 @@ namespace Mobile.ViewModels
             };
             using (HttpClient client = new HttpClient(httpHandler))
             {
-                Console.WriteLine(_name + " " + _password);
                 StringContent content = new StringContent(jsonObj.ToString(), Encoding.UTF8, "application/json");
                 var request = new HttpRequestMessage()
                 {

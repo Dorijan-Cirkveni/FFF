@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mobile.Views.TransactionDetailPage"
+             Title="Pregled mjesečne školarine">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ScrollView Grid.Row="1">
+            <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
+                <Label Text="ID transakcije" FontSize="Small"/>
+                <Label Text="{Binding Transaction.Id}" FontSize="Medium"/>
+                <Label Text="Članarina" FontSize="Small"/>
+                <Label Text="{Binding Transaction.Date, StringFormat='{0:mm/yy}'}" FontSize="Medium"/>
+                <Label Text="Vrsta školarine" FontSize="Small"/>
+                <Label Text="{Binding Transaction.Membership.Type.Name}" FontSize="Medium"/>
+                <Label Text="Iznos" FontSize="Small"/>
+                <Label Text="{Binding Transaction.Membership.Type.Price, StringFormat='{0:} HRK'}" FontSize="Medium"/>
+                <Label Text="Status" FontSize="Small"/>
+                <Label Text="{Binding Transaction.Paid}" FontSize="Medium"/>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

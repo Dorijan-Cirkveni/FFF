@@ -33,7 +33,7 @@ namespace Mobile.ViewModels
             IsBusy = true;
         }
 
-        async Task ExecuteLoadAppointmentsCommand()
+        public async Task ExecuteLoadAppointmentsCommand()
         {
             IsBusy = true;
 

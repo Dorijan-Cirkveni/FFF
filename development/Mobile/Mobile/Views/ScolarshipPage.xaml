@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Mobile.Views.ScolarshipPage"
              xmlns:vm="clr-namespace:Mobile.ViewModels"
+             xmlns:model="clr-namespace:Mobile.Models"
              Title="{Binding Title}">
 
     <ContentPage.BindingContext>
@@ -22,41 +23,30 @@
         </Grid.RowDefinitions>
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
-                <ListView x:Name="listView">
-                    <!--staviti ItemsSource="{Binding Transactions}" u liniju iznad da se svakom prijavljenom korisniku prikažu njegova plaćanja-->
-                    <ListView.Header>
-                        <Grid BackgroundColor="#ECECEC" Padding="5,5,5,5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"></ColumnDefinition>
-                                <ColumnDefinition Width="1*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Label Text="Mjesec" HorizontalOptions="Fill" Grid.Column="0" Margin="1" FontSize="16" BackgroundColor="#ECECEC"/>
-                            <Label Text="Godina" HorizontalOptions="Fill" Grid.Column="1" Margin="1" FontSize="16" BackgroundColor="#ECECEC"/>
-                            <Label Text="Vrsta" HorizontalOptions="Fill" Grid.Column="2" Margin="1" FontSize="16" BackgroundColor="#ECECEC"/>
-                            <Label Text="Cijena" HorizontalOptions="Fill" Grid.Column="3" Margin="1" FontSize="16" BackgroundColor="#ECECEC"/>
-                            <Label Text="Status" HorizontalOptions="Fill" Grid.Column="4" Margin="1" FontSize="16" BackgroundColor="#ECECEC"/>
-                        </Grid>
-                    </ListView.Header>
+                <RefreshView x:DataType="vm:ScolarshipViewModel" Command="{Binding LoadTransactionsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                    <CollectionView x:Name="ItemsListView" ItemsSource="{Binding Transactions}" SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="0,10,0,10" x:DataType="model:TransactionModel">
+                                    <Label Text="{Binding Date, StringFormat='{0:mm/yy}'}" 
+                                        LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+                                    <Label Text="{Binding Paid}" 
+                                        LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="14" />
+                                    <Label Text="{Binding Membership.Type.Price, StringFormat='Cijena: {0:} HRK'}" 
+                                        LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="14" />
 
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Grid BackgroundColor="#ECECEC" Padding="5,5,5,5">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="1*"></ColumnDefinition>
-                                        <ColumnDefinition Width="1*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <Label Grid.Column="0" Text="" HorizontalOptions="Fill" Margin="1" FontSize="16" BackgroundColor="White"></Label>
-                                    <Label Grid.Column="1" Text="" HorizontalOptions="Fill" Margin="1" FontSize="16" BackgroundColor="White"></Label>
-                                    <Label Grid.Column="2" Text="" HorizontalOptions="Fill" Margin="1" FontSize="16" BackgroundColor="White"></Label>
-                                    <Label Grid.Column="3" Text="" HorizontalOptions="Fill" Margin="1" FontSize="16" BackgroundColor="White"></Label>
-                                    <Label Grid.Column="4" Text="" HorizontalOptions="Fill" Margin="1" FontSize="16" BackgroundColor="White"></Label>
-                                    <!--staviti Text ="{Binding Termin}" i Text ="{Binding Vrsta}" u linije iznad da se svakom prijavljenom korisniku prikažu njegovi podaci-->
-                                </Grid>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                    NumberOfTapsRequired="1"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ScolarshipViewModel}}, Path=TransactionTapped}"		
+                                    CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
             </StackLayout>
         </ScrollView>
     </Grid>
