@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Registracije : MonoBehaviour, ISwitchable
 {
-    public void Close()
+
+    public void CloseAsync()
     {
         throw new System.NotImplementedException();
     }

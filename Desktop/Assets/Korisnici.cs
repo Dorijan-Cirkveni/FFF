@@ -5,7 +5,7 @@ using UnityEngine;
 public class Korisnici : MonoBehaviour, ISwitchable
 {
     //TODO poveznica za dohvat i spremanje podataka o korisnicima
-    public void Close()
+    public void CloseAsync()
     {
         //TODO
     }

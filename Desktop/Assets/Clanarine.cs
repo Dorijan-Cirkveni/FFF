@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Clanarine : MonoBehaviour, ISwitchable
 {
-    public void Close()
+    public void CloseAsync()
     {
         throw new System.NotImplementedException();
     }

@@ -3019,7 +3019,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  active: 4
+  active: 0
 --- !u!1 &627598082
 GameObject:
   m_ObjectHideFlags: 0

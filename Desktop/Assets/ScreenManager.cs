@@ -21,7 +21,7 @@ public class ScreenManager : MonoBehaviour
             if (found != null)
             {
                 screens.Add(found);
-                found.Close();
+                found.CloseAsync();
             }
         }
         screens[active].Open();
@@ -36,7 +36,7 @@ public class ScreenManager : MonoBehaviour
     public void Swap(int turnOn)
     {
         Debug.Log(active*10+turnOn);
-        screens[active].Close();
+        screens[active].CloseAsync();
         active = turnOn;
         Debug.Log(active);
         screens[active].Open();

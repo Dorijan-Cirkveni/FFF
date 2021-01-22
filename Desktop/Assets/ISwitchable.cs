@@ -6,5 +6,5 @@ public interface ISwitchable
 {
     void Open();
 
-    void Close();
+    void CloseAsync();
 }
