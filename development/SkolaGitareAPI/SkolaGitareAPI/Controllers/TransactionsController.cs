@@ -25,10 +25,10 @@ namespace SkolaGitareAPI.Controllers
         private readonly UserManager<Person> userManager;
         private readonly ILogger<TransactionsController> logger;
 
-        public TransactionsController(  ITransactionRepository repository, 
-                                        IPersonRepository personRepository, 
-                                        IMembershipRepository membershipRepository, 
-                                        UserManager<Person> userManager, 
+        public TransactionsController(  ITransactionRepository repository,
+                                        IPersonRepository personRepository,
+                                        IMembershipRepository membershipRepository,
+                                        UserManager<Person> userManager,
                                         ILogger<TransactionsController> logger)
         {
             this.repository = repository;
@@ -78,7 +78,7 @@ namespace SkolaGitareAPI.Controllers
 
         [HttpGet("Student/{id}/Transaction")]
         [Authorize(Roles = "Teacher, Admin, Student")]
-        public async Task<IActionResult> Get(string id, [FromBody] DateTime date)
+        public async Task<IActionResult> Get(string id, [FromQuery] DateTime date)
         {
             if (id == null)
             {

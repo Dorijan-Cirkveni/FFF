@@ -2,18 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Registracije : MonoBehaviour, ISwitchable
+public class Input : MonoBehaviour
 {
-    public bool Close()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public bool Open()
-    {
-        throw new System.NotImplementedException();
-    }
-
     // Start is called before the first frame update
     void Start()
     {

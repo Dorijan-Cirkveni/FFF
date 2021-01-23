@@ -5,12 +5,12 @@ using UnityEngine;
 public class Korisnici : MonoBehaviour, ISwitchable
 {
     //TODO poveznica za dohvat i spremanje podataka o korisnicima
-    public void CloseAsync()
+    public bool Close()
     {
         //TODO
     }
 
-    public void Open()
+    public bool Open()
     {
         //TODO
     }
