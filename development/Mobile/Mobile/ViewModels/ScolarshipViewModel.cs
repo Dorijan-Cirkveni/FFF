@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -99,7 +100,8 @@ namespace Mobile.ViewModels
             if (transaction == null)
                 return;
 
-            await Shell.Current.GoToAsync($"{nameof(TransactionDetailPage)}?{nameof(TransactionDetailViewModel.TransactionDate)}={transaction.Date}");
+            string tDate = DateTime.ParseExact(transaction.Date.ToString(), "dd.M.yyyy. H:mm:ss", CultureInfo.GetCultureInfo("hr-HR")).ToString("yyyy-MM-ddTHH:mm:ss");
+            await Shell.Current.GoToAsync($"{nameof(TransactionDetailPage)}?{nameof(TransactionDetailViewModel.TransactionDate)}={tDate}");
         }
     }
 }

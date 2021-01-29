@@ -17,6 +17,7 @@ namespace Mobile
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(NewAppointmentPage), typeof(NewAppointmentPage));
+            Routing.RegisterRoute(nameof(TransactionDetailPage), typeof(TransactionDetailPage));
             CurrentItem = Start;
         }
 

@@ -6,16 +6,6 @@
              xmlns:model="clr-namespace:Mobile.Models"
              Title="{Binding Title}">
 
-    <ContentPage.BindingContext>
-        <vm:ScolarshipViewModel />
-    </ContentPage.BindingContext>
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <Color x:Key="Accent">#96d1ff</Color>
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -28,7 +18,7 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout Padding="0,10,0,10" x:DataType="model:TransactionModel">
-                                    <Label Text="{Binding Date, StringFormat='{0:mm/yy}'}" 
+                                    <Label Text="{Binding Date, StringFormat='Članarina za {0:MM}/{0:yy}'}" 
                                         LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
                                     <Label Text="{Binding Paid}" 
                                         LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="14" />

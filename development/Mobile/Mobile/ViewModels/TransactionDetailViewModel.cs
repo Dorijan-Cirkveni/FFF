@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -12,16 +13,51 @@ namespace Mobile.ViewModels
     [QueryProperty(nameof(TransactionDate), nameof(TransactionDate))]
     public class TransactionDetailViewModel : BaseViewModel
     {
-        private DateTime transactionDate;
+        private string transactionDate;
         private TransactionModel transaction;
+        private Guid id;
+        private DateTime date;
+        private string membershipName;
+        private decimal price;
+        private bool isPaid;
+
+        public Guid Id
+        {
+            get => id;
+            set => SetProperty(ref id, value);
+        }
+
+        public DateTime Date
+        {
+            get => date;
+            set => SetProperty(ref date, value);
+        }
+
+        public string Name 
+        {
+            get => membershipName;
+            set => SetProperty(ref membershipName, value);
+        }
+
+        public decimal Price 
+        {
+            get => price;
+            set => SetProperty(ref price, value);
+        }
+
+        public bool Paid 
+        {
+            get => isPaid;
+            set => SetProperty(ref isPaid, value);
+        }
 
         public TransactionModel Transaction
         {
             get => transaction;
             set => SetProperty(ref transaction, value);
         }
-
-        public DateTime TransactionDate
+        
+        public string TransactionDate
         {
             get
             {
@@ -33,13 +69,11 @@ namespace Mobile.ViewModels
                 LoadTransaction(value);
             }
         }
-
-        public async void LoadTransaction(DateTime transactionDate)
+        
+        public async void LoadTransaction(string transactionDate)
         {
             try
             {
-                object userInfos = new { date = transactionDate };
-                var jsonObj = JsonConvert.SerializeObject(userInfos);
                 var httpHandler = new HttpClientHandler
                 {
                     ServerCertificateCustomValidationCallback = (o, cert, chain, errors) => true
@@ -48,12 +82,10 @@ namespace Mobile.ViewModels
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", (string)Application.Current.Properties["token"]);
 
-                    StringContent content = new StringContent(jsonObj.ToString(), Encoding.UTF8, "application/json");
                     var request = new HttpRequestMessage()
                     {
-                        RequestUri = new Uri("https://10.0.2.2:5001/api/Appointments/Student/" + (string)Application.Current.Properties["id"] + "/Transaction"),
-                        Method = HttpMethod.Post,
-                        Content = content
+                        RequestUri = new Uri("https://10.0.2.2:5001/api/Transactions/Student/" + (string)Application.Current.Properties["id"] + "/Transaction?date=" + transactionDate),
+                        Method = HttpMethod.Get
                     };
 
                     var response = await client.SendAsync(request);
@@ -63,6 +95,11 @@ namespace Mobile.ViewModels
                     {
                         var result = JsonConvert.DeserializeObject<TransactionModel>(dataResult);
                         Transaction = result;
+                        Id = result.Id;
+                        Date = result.Date;
+                        Name = result.Membership.Type.Name;
+                        Price = result.Membership.Type.Price;
+                        Paid = result.Paid;
                     }
                 }
             }
