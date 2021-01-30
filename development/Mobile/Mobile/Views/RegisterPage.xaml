@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mobile.Views.RegisterPage"
+             xmlns:vm="clr-namespace:Mobile.ViewModels"
+             Title="{Binding Title}">
+    
+    <ContentPage.BindingContext>
+        <vm:RegisterViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ScrollView Grid.Row="1">
+            <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
+                <Entry Placeholder="Ime" Text="{Binding FirstName}"></Entry>
+                <Entry Placeholder="Prezime" Text="{Binding LastName}"></Entry>
+                <Entry Placeholder="Broj telefona" Text="{Binding PhoneNumber}"></Entry>
+                <Entry Placeholder="E-mail" Text="{Binding Email}"></Entry>
+                <Label>Lozinka mora sadržavati mala i velika slova, barem jednu brojčanu vrijednost, barem jedan znak koji nije slovo ni broj te biti duža od 5 znakova.</Label>
+                <Entry Placeholder="Lozinka" IsPassword="true" Text="{Binding Password}"></Entry>
+                <Entry Placeholder="Potvrdi lozinku" IsPassword="true" Text="{Binding ConfirmPassword}"></Entry>
+                <Label>Obzirom da koristiš mobilnu aplikaciju, imaj na umu da registracijom dobivaš ulogu učenika.</Label>
+                <Label IsVisible="{Binding Toggle}" TextColor="Red">Lozinke se ne podudaraju, pokušajte ponovo.</Label>
+                <Label IsVisible="{Binding Toggle2}" TextColor="Red">Došlo je do greške.</Label>
+                <Button Text="Registracija" Command="{Binding RegisterCommand}"/>
+                <Button Text="Odustani" Command="{Binding CancelAction}" BackgroundColor="WhiteSmoke" TextColor="{StaticResource Primary}"/>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace SkolaGitareAPI.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize(Roles = "Teacher, Admin")]
+    [Authorize(Roles = "Teacher, Admin, Student")]
     [ApiController]
     public class TransactionsController : ControllerBase
     {
@@ -25,10 +25,10 @@ namespace SkolaGitareAPI.Controllers
         private readonly UserManager<Person> userManager;
         private readonly ILogger<TransactionsController> logger;
 
-        public TransactionsController(  ITransactionRepository repository, 
-                                        IPersonRepository personRepository, 
-                                        IMembershipRepository membershipRepository, 
-                                        UserManager<Person> userManager, 
+        public TransactionsController(  ITransactionRepository repository,
+                                        IPersonRepository personRepository,
+                                        IMembershipRepository membershipRepository,
+                                        UserManager<Person> userManager,
                                         ILogger<TransactionsController> logger)
         {
             this.repository = repository;
@@ -43,12 +43,14 @@ namespace SkolaGitareAPI.Controllers
 
         // GET: api/<TransactionsController>
         [HttpGet]
+        [Authorize(Roles = "Teacher, Admin")]
         public async Task<IActionResult> Get()
         {
             return Ok(await repository.GetAllTransactions());
         }
 
-        [HttpGet("Unapid")]
+        [HttpGet("Unpaid")]
+        [Authorize(Roles = "Teacher, Admin")]
         public async Task<IActionResult> GetUnpaidTransactions()
         {
             return Ok(await repository.GetUnpaidTransactions());
@@ -75,6 +77,7 @@ namespace SkolaGitareAPI.Controllers
         }
 
         [HttpGet("Student/{id}/Transaction")]
+        [Authorize(Roles = "Teacher, Admin, Student")]
         public async Task<IActionResult> Get(string id, [FromQuery] DateTime date)
         {
             if (id == null)
@@ -96,6 +99,7 @@ namespace SkolaGitareAPI.Controllers
 
         // GET api/<TransactionsController>/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "Teacher, Admin")]
         public async Task<IActionResult> Get(Guid id)
         {
             if (id == default(Guid))
@@ -117,6 +121,7 @@ namespace SkolaGitareAPI.Controllers
 
         // POST api/<TransactionsController>
         [HttpPost]
+        [Authorize(Roles = "Teacher, Admin")]
         public async Task<IActionResult> Post([FromBody] CreateTransactionModel model)
         {
             if (model == null)
@@ -158,6 +163,7 @@ namespace SkolaGitareAPI.Controllers
 
         // PUT api/<TransactionsController>/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "Teacher, Admin")]
         public async Task<IActionResult> Put(Guid id, [FromBody] UpdateTransactionModel model)
         {
             if (model == null)
@@ -204,6 +210,7 @@ namespace SkolaGitareAPI.Controllers
         }
 
         [HttpPut("{id}/Paid")]
+        [Authorize(Roles = "Teacher, Admin")]
         public async Task<IActionResult> Paid(Guid id)
         {
 
@@ -233,6 +240,7 @@ namespace SkolaGitareAPI.Controllers
 
         // DELETE api/<TransactionsController>/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Teacher, Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             logger.LogInformation("Attempting to delete transaction with the following id: " + id);

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mobile.Views.HomePage"
+             xmlns:vm="clr-namespace:Mobile.ViewModels"
+             xmlns:model="clr-namespace:Mobile.Models"  
+             Title="{Binding Title}">
+
+    <ContentPage.BindingContext>
+        <vm:HomeViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Dodaj" Command="{Binding AddAppointmentCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ScrollView Grid.Row="1">
+            <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
+                <Label Text="{Binding HelloMessage}" FontSize="Title"/>
+                <Label Text="Nemoj zaboraviti na nadolazeće termine:" FontSize="16" Padding="0,0,0,0"/>
+
+                <RefreshView x:DataType="vm:HomeViewModel" Command="{Binding LoadAppointmentsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                    <CollectionView x:Name="ItemsListView" ItemsSource="{Binding Appointments}" SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="0,10,0,10" x:DataType="model:AppointmentModel">
+                                    <Label Text="{Binding DateTimeStart, StringFormat='{0:dd.MM.yyyy. HH:mm}h'}" 
+                                        LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+                                    <Label Text="{Binding Duration, StringFormat='Trajanje: {0:} minuta'}" 
+                                        LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="14" />
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
