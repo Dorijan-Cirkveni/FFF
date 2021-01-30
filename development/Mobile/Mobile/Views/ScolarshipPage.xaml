@@ -3,9 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Mobile.Views.ScolarshipPage"
              xmlns:vm="clr-namespace:Mobile.ViewModels"
+             xmlns:local="clr-namespace:Mobile.Converters"
              xmlns:model="clr-namespace:Mobile.Models"
              Title="{Binding Title}">
 
+    <ContentPage.Resources>
+        <local:NegateBooleanConverter x:Key="conv"/>
+    </ContentPage.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -20,7 +25,9 @@
                                 <StackLayout Padding="0,10,0,10" x:DataType="model:TransactionModel">
                                     <Label Text="{Binding Date, StringFormat='Članarina za {0:MM}/{0:yy}'}" 
                                         LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
-                                    <Label Text="{Binding Paid}" 
+                                    <Label Text="Plaćeno" TextColor="Green" IsVisible="{Binding Paid}"
+                                        LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="14" />
+                                    <Label Text="Nije plaćeno" TextColor="Red" IsVisible="{Binding Paid, Converter={StaticResource conv}}" 
                                         LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="14" />
                                     <Label Text="{Binding Membership.Type.Price, StringFormat='Cijena: {0:} HRK'}" 
                                         LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="14" />

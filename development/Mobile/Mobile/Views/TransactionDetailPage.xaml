@@ -1,8 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Mobile.Converters"
              x:Class="Mobile.Views.TransactionDetailPage"
              Title="Pregled mjesečne školarine">
+    <ContentPage.Resources>
+        <local:NegateBooleanConverter x:Key="conv"/>
+    </ContentPage.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -20,8 +24,11 @@
                 <Label Text="Iznos" FontSize="Small"/>
                 <Label Text="{Binding Price, StringFormat='{0:} HRK'}" FontSize="Medium"/>
                 <Label Text="Status" FontSize="Small"/>
-                <Label Text="{Binding Paid}" FontSize="Medium"/>
-                
+                <Label Text="Plaćeno" TextColor="Green" IsVisible="{Binding Paid}"
+                                        LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="Medium" />
+                <Label Text="Nije plaćeno" TextColor="Red" IsVisible="{Binding Paid, Converter={StaticResource conv}}" 
+                                        LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="Medium" />
+
             </StackLayout>
         </ScrollView>
     </Grid>
