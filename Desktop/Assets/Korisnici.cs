@@ -5,15 +5,19 @@ using UnityEngine;
 public class Korisnici : MonoBehaviour, ISwitchable
 {
     //TODO poveznica za dohvat i spremanje podataka o korisnicima
+
     public bool Close()
     {
-        //TODO
+        gameObject.SetActive(false);
+        return true;
     }
 
     public bool Open()
     {
-        //TODO
+        gameObject.SetActive(true);
+        return true;
     }
+
 
     // Start is called before the first frame update
     void Start()

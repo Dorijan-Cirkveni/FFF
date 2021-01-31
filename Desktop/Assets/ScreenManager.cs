@@ -21,7 +21,7 @@ public class ScreenManager : MonoBehaviour
             if (found != null)
             {
                 screens.Add(found);
-                found.CloseAsync();
+                found.Close();
             }
         }
         screens[active].Open();
