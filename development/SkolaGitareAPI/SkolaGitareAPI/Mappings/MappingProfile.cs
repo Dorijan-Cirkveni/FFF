@@ -18,6 +18,7 @@ namespace SkolaGitareAPI.Mappings
             CreateMap<Membership, MembershipDTO>();
             CreateMap<MembershipType, MembershipTypeDTO>();
             CreateMap<Transaction, TransactionDTO>().ForMember(x => x.Membership, opt => opt.MapFrom(x => x.Membership));
+            CreateMap<Lesson, LessonDTO>().ForMember(x => x.For, opt => opt.MapFrom(x => x.For)).ForMember(x => x.From, opt => opt.MapFrom(x => x.From));
         }
     }
 }

@@ -39,9 +39,9 @@ namespace SkolaGitareAPI.Controllers
 
         // GET: api/<LessonsController>
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            return Ok(repository.GetAll());
+            return Ok(await repository.GetLessons());
         }
 
         // GET api/<LessonsController>/5
@@ -53,7 +53,7 @@ namespace SkolaGitareAPI.Controllers
                 return BadRequest();
             }
 
-            var lesson = await repository.Get(id);
+            var lesson = await repository.GetLesson(id);
 
             if (lesson == null)
             {
