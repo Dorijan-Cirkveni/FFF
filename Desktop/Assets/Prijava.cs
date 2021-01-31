@@ -14,6 +14,7 @@ public class LoginModel
 public class Prijava : MonoBehaviour, ISwitchable
 {
     public InputField i1, i2;
+    public int test = 0;
 
     public async System.Threading.Tasks.Task CloseAsync()
     {
@@ -40,11 +41,15 @@ public class Prijava : MonoBehaviour, ISwitchable
             var response = await client.SendAsync(request);
             var dataResult = await response.Content.ReadAsStringAsync();
 
+            test = (response.IsSuccessStatusCode) ? 1 : -1;
+
             if (response.IsSuccessStatusCode)
             {
+                /*
                 var result = JsonUtility.FromJson<LoginModel>(dataResult);
                 Application.Current.Properties["token"] = result.Token;
                 await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+                */
                 Username = string.Empty;
                 Password = string.Empty;
                 Toggle = false;
@@ -55,19 +60,21 @@ public class Prijava : MonoBehaviour, ISwitchable
                 Password = string.Empty;
                 Toggle = true;
             }
-            return response;
+            return;
         }
     }
     public bool Close()
     {
         System.Threading.Tasks.Task T = CloseAsync();
         T.Wait();
-        return T.
+        return (test == 1);
     }
 
-    public void Open()
+    bool ISwitchable.Open()
     {
-        throw new System.NotImplementedException();
+        i1.text = "";
+        i2.text = "";
+        return true;
     }
 
     // Start is called before the first frame update
@@ -81,4 +88,5 @@ public class Prijava : MonoBehaviour, ISwitchable
     {
         
     }
+
 }

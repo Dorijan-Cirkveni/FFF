@@ -56,11 +56,13 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Clanarine.cs" />
+     <Compile Include="Assets\DataCarryingSwitchable.cs" />
      <Compile Include="Assets\DummySwitchable.cs" />
      <Compile Include="Assets\ISwitchable.cs" />
      <Compile Include="Assets\Input.cs" />
      <Compile Include="Assets\Korisnici.cs" />
      <Compile Include="Assets\Prijava.cs" />
+     <Compile Include="Assets\Registracija.cs" />
      <Compile Include="Assets\Registracije.cs" />
      <Compile Include="Assets\ScreenManager.cs" />
  <Reference Include="UnityEngine">
