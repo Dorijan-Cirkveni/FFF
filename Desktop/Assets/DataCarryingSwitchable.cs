@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataCarryingSwitchable : ISwitchable
+public class DataCarryingSwitchable
 {
-    
-    public List<InputField> IFLD;
     
 }
